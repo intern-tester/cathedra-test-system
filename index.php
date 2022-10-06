@@ -1,6 +1,7 @@
 <?php 
+$namesite = getenv('API');
 
-print 'Test Cathedra';
+print 'Test Cathedra VAR % ' . $namesite;
 
 
 ?>
