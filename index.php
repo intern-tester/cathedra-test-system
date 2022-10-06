@@ -1,5 +1,21 @@
 <?php 
 $namesite = getenv('copyright');
+$token = getenv('API');
+
+$result = json_decode(file_get_contents('php://input'), true);
+
+if ($result['message']['text'] == '/start') {
+    file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
+}else{
+  $content = '<h1>Cathedra</h1>
+<div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      <p>© 2022 '.$namesite.', Inc. All rights reserved.</p>
+      <ul class="list-unstyled d-flex"></ul>
+    </div>
+';
+  
+  print boostrap($content, 'Home page');
+}
 
 function boostrap($content, $title = "Page"){
 return '
@@ -21,14 +37,9 @@ return '
 
 //print 'Test Cathedra VAR % ' . $namesite;
 
-$content = '<h1>Cathedra</h1>
-<div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2022 '.$namesite.', Inc. All rights reserved.</p>
-      <ul class="list-unstyled d-flex"></ul>
-    </div>
-';
 
-print boostrap($content, 'Home page');
+
+
 
 
 ?>
