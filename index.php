@@ -1,1 +1,6 @@
-print 'Hello World';
+<?php 
+
+print 'Test Cathedra';
+
+
+?>
