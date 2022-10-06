@@ -6,6 +6,8 @@ $result = json_decode(file_get_contents('php://input'), true);
 
 if ($result['message']['text'] == '/start') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
+}elseif ($result['message']['text'] == '/info') {
+    file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
 }else{
   $content = '<h1>Cathedra</h1>
 <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
