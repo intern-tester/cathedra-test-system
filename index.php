@@ -21,9 +21,9 @@ return '
 
 //print 'Test Cathedra VAR % ' . $namesite;
 
-$content = '<h1>Cathedra '.$namesite.'</h1>
+$content = '<h1>Cathedra</h1>
 <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2022 Company, Inc. All rights reserved.</p>
+      <p>© 2022 '.$namesite.', Inc. All rights reserved.</p>
       <ul class="list-unstyled d-flex"></ul>
     </div>
 ';
