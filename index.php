@@ -109,9 +109,17 @@ $output = curl_exec($ch);
 function sendMessage($chat_id, $msg){
 $bot_url    = "https://api.telegram.org/bot".getenv('API');
 $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
+    
+$replyMarkup = array(
+    'keyboard' => array(
+        array("A", "B")
+    )
+);
+$encodedMarkup = json_encode($replyMarkup);    
 
 $post_fields = array(
     'chat_id'   => $chat_id,
+    'reply_markup' => $encodedMarkup,
     'text'     => $msg 
 ); 
     
