@@ -8,15 +8,15 @@ $result = json_decode(file_get_contents('php://input'), true);
 $bot = new BOT();
 
 if ($result['message']['text'] == '/start') {
-    file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
+    
 }elseif ($result['message']['text'] == '/info') {
-    file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
+    //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
 }elseif ($result['message']['text'] == '/url') {
-    file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
+    //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
 }elseif ($result['message']['text'] == '/img') {
-    sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
+    $bot->sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/doc') {
-    sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
+    $bot->sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/msg') {
     sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
@@ -44,71 +44,12 @@ else{
     </div>
 ';
   
-  print boostrap($content, 'Home page');
-}
-
-function boostrap($content, $title = "Page"){
-return '
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>'.$title.'</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    '.$content.'
-  </body>
-</html>
-';
+  print $bot->boostrap($content, 'Home page');
 }
 
 
-//Base Bot Functions
 
 
-
-// Send Image File 
-    // img, jpg, png. 
-function sendPhoto($chat_id, $photo){
-$bot_url    = "https://api.telegram.org/bot".getenv('API');
-$url        = $bot_url . "/sendPhoto?chat_id=" . $chat_id ;
-
-$post_fields = array('chat_id'   => $chat_id,
-    'photo'     => new CURLFile($photo) 
-); 
-// realpath("/path/to/image.png")
-$ch = curl_init(); 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    "Content-Type:multipart/form-data"
-));
-curl_setopt($ch, CURLOPT_URL, $url); 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
-$output = curl_exec($ch);
-}
-
-// Send Document File
-    // doc, docx, txt, json, md5, sql 
-function sendDocument($chat_id, $doc){
-$bot_url    = "https://api.telegram.org/bot".getenv('API');
-$url        = $bot_url . "/sendDocument?chat_id=" . $chat_id ;
-
-$post_fields = array('chat_id'   => $chat_id,
-    'document'     => new CURLFile($doc) 
-); 
-// realpath("/path/to/image.png")
-$ch = curl_init(); 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    "Content-Type:multipart/form-data"
-));
-curl_setopt($ch, CURLOPT_URL, $url); 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
-$output = curl_exec($ch);
-}
 
 
 
@@ -173,7 +114,7 @@ class BOT {
 
         $post_fields = array(
             'chat_id'   => $chat_id,
-            'resize_keyboard' => true, 
+            //'resize_keyboard' => true, 
             'reply_markup' => $encodedMarkup,
             'text'     => $msg 
         ); 
@@ -187,12 +128,66 @@ class BOT {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
         $output = curl_exec($ch);
     }
+    
+    function sendDocument($chat_id, $doc){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        $url        = $bot_url . "/sendDocument?chat_id=" . $chat_id ;
+
+        $post_fields = array('chat_id'   => $chat_id,
+            'document'     => new CURLFile($doc) 
+        ); 
+        // realpath("/path/to/image.png")
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+        $output = curl_exec($ch);
+    }
+    
+    function sendPhoto($chat_id, $photo){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        $url        = $bot_url . "/sendPhoto?chat_id=" . $chat_id ;
+
+        $post_fields = array('chat_id'   => $chat_id,
+            'photo'     => new CURLFile($photo) 
+        ); 
+        // realpath("/path/to/image.png")
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+        $output = curl_exec($ch);
+    }
+    
+    function boostrap($content, $title = "Home"){
+    return '
+        <!doctype html>
+        <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>'.$title.'</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+          </head>
+          <body>
+            '.$content.'
+          </body>
+        </html>
+    ';
+}
 }
 
 
 
 
 
-
+// Simple Send Messsage file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
 
 ?>
