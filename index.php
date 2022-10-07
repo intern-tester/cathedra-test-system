@@ -20,7 +20,13 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/msg') {
     sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
-    $bot->sendMessage($result['message']['chat']['id'], "Привет");
+    $keyboard = [
+        ['7', '8', '9'],
+        ['4', '5', '6'],
+        ['1', '2', '3'],
+             ['0']
+    ];
+    $bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
 }
 
 elseif ($result['message']['text'] == '/debug') {
@@ -155,14 +161,12 @@ class BOT {
     
     //private $bot_url = "https://api.telegram.org/bot".getenv('API');
 
-    function sendMessage($chat_id, $msg, ){
+    function sendMessage($chat_id, $msg, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
         $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
 
         $replyMarkup = array(
-            'keyboard' => array(
-                array("A", "B")
-            )
+            'keyboard' => $keyboard
         );
         
         $encodedMarkup = json_encode($replyMarkup);    
