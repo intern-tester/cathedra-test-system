@@ -16,7 +16,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/msg') {
-    sendDocument($result['message']['chat']['id'], "Hello World!");
+    sendMessage($result['message']['chat']['id'], "Hello World!");
 }
 
 elseif ($result['message']['text'] == '/debug') {
