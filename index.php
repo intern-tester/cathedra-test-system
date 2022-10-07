@@ -155,7 +155,7 @@ class BOT {
     
     //private $bot_url = "https://api.telegram.org/bot".getenv('API');
 
-    function sendMessage($chat_id, $msg){
+    function sendMessage($chat_id, $msg, ){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
         $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
 
@@ -164,10 +164,12 @@ class BOT {
                 array("A", "B")
             )
         );
+        
         $encodedMarkup = json_encode($replyMarkup);    
 
         $post_fields = array(
             'chat_id'   => $chat_id,
+            'resize_keyboard' => true, 
             'reply_markup' => $encodedMarkup,
             'text'     => $msg 
         ); 
