@@ -5,6 +5,8 @@ $bot_url = "https://api.telegram.org/bot" . $token;
 
 $result = json_decode(file_get_contents('php://input'), true);
 
+$bot = new BOT();
+
 if ($result['message']['text'] == '/start') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
 }elseif ($result['message']['text'] == '/info') {
@@ -17,6 +19,8 @@ if ($result['message']['text'] == '/start') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/msg') {
     sendMessage($result['message']['chat']['id'], "Hello World!");
+}elseif ($result['message']['text'] == '/message') {
+    $bot->sendMessage($result['message']['chat']['id'], "Привет");
 }
 
 elseif ($result['message']['text'] == '/debug') {
@@ -146,6 +150,38 @@ $keyboard = [
 ];
 
 */
+
+class BOT {
+    
+    //private $bot_url = "https://api.telegram.org/bot".getenv('API');
+
+    function sendMessage($chat_id, $msg){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
+
+        $replyMarkup = array(
+            'keyboard' => array(
+                array("A", "B")
+            )
+        );
+        $encodedMarkup = json_encode($replyMarkup);    
+
+        $post_fields = array(
+            'chat_id'   => $chat_id,
+            'reply_markup' => $encodedMarkup,
+            'text'     => $msg 
+        ); 
+
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+        $output = curl_exec($ch);
+    }
+}
 
 
 
