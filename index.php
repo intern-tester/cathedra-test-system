@@ -15,6 +15,8 @@ if ($result['message']['text'] == '/start') {
     sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
+}elseif ($result['message']['text'] == '/msg') {
+    sendDocument($result['message']['chat']['id'], "Hello World!");
 }
 
 elseif ($result['message']['text'] == '/debug') {
@@ -97,6 +99,35 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
 $output = curl_exec($ch);
 }
+
+
+
+// TESTED SendMessage
+
+function sendMessage($chatid, $msg, $keyboard = [], $keyboard_opt = [], $parse_preview = ['html', false]) {
+        $bot_url = "https://api.telegram.org/bot" . $token;
+        if(empty($keyboard_opt)) {
+            $keyboard_opt[0] = 'keyboard';
+            $keyboard_opt[1] = false;
+            $keyboard_opt[2] = true;
+        }
+        $options = [
+            $keyboard_opt[0]    => $keyboard,
+            'one_time_keyboard' => $keyboard_opt[1],
+            'resize_keyboard'   => $keyboard_opt[2],
+        ];
+        $replyMarkups   = json_encode($options);
+        $removeMarkups  = json_encode(['remove_keyboard' => true]);
+
+        // если в массиве $keyboard передается [0], то клавиатура удаляется
+        if($keyboard == [0]) { file_get_contents($bot_url.'/sendMessage?disable_web_page_preview='.$parse_preview[1].'&chat_id='.$chatid.'&parse_mode='.$parse_preview[0].'&text='.urlencode($msg).'&reply_markup='.urlencode($removeMarkups)); }
+
+        // или же если в массиве $keyboard передается [], то есть пустой массив, то клавиатура останется прежней
+        else if($keyboard == []) { file_get_contents($bot_url.'/sendMessage?disable_web_page_preview='.$parse_preview[1].'&chat_id='.$chatid.'&parse_mode='.$parse_preview[0].'&text='.urlencode($msg)); }
+
+        // если вышеуказанные условия не соблюдены, значит в $keyboard передается клавиатура, которую вы создали
+        else { file_get_contents($bot_url.'/sendMessage?disable_web_page_preview='.$parse_preview[1].'&chat_id='.$chatid.'&parse_mode='.$parse_preview[0].'&text='.urlencode($msg).'&reply_markup='.urlencode($replyMarkups)); }
+    }
 
 
 //print 'Test Cathedra VAR % ' . $namesite; curl -F document=@"path/to/some.file" https://api.telegram.org/bot<token>/sendDocument?chat_id=<chat_id>
