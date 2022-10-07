@@ -16,7 +16,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/msg') {
-    sendMessage($result['message']['chat']['id'], "Hello World!");
+    sendMsg($result['message']['chat']['id'], "Hello World!");
 }
 
 elseif ($result['message']['text'] == '/debug') {
@@ -103,6 +103,38 @@ $output = curl_exec($ch);
 
 
 // TESTED SendMessage
+
+function sendMsg($chat_id, $message = ""){
+$keyb = array('ReplyKeyboardMarkup' => array('keyboard' => array(array("A", "B"))));
+$content = array('chat_id' => <chat_id>, 'reply_markup' => $keyb, 'text' => "Test");
+    
+$replyMarkup = array(
+    'keyboard' => array(
+        array("A", "B")
+    )
+);
+$encodedMarkup = json_encode($replyMarkup);
+$content = array(
+    'chat_id' => <chat_id>,
+    'reply_markup' => $encodedMarkup,
+    'text' => "Test"
+);
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($content));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+// receive server response ...
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$server_output = curl_exec ($ch);
+curl_close ($ch);
+//var_dump($server_output);
+}
 
 function sendMessage($chatid, $msg, $keyboard = [], $keyboard_opt = [], $parse_preview = ['html', false]) {
         $bot_url = "https://api.telegram.org/bot" . $token;
