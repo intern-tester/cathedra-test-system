@@ -14,9 +14,9 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/info') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
-    $bot->sendPhoto($result['message']['chat']['id'], 'https://picsum.photos/200/300.jpg');
+    $bot->sendPhoto($result['message']['chat']['id'], 'https://picsum.photos/id/237/536/354');
 }elseif ($result['message']['text'] == '/doc') {
-    $bot->sendDocument($result['message']['chat']['id'], 'https://picsum.photos/200/300.jpg');
+    $bot->sendDocument($result['message']['chat']['id'], 'https://picsum.photos/id/237/536/354');
 }elseif ($result['message']['text'] == '/msg') {
     sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
