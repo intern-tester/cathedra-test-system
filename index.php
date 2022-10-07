@@ -1,6 +1,7 @@
 <?php 
 $namesite = getenv('copyright');
 $token = getenv('API');
+$bot_url = "https://api.telegram.org/bot" . $token;
 
 $result = json_decode(file_get_contents('php://input'), true);
 
@@ -10,6 +11,9 @@ if ($result['message']['text'] == '/start') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
 }elseif ($result['message']['text'] == '/doc') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
+}elseif ($result['message']['text'] == '/img') {
+    //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
+    sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg', $bot_url);
 }
 
 //// Show Home Page Site. 
@@ -40,6 +44,28 @@ return '
   </body>
 </html>
 ';
+}
+
+
+// 
+
+
+function sendPhoto($chat_id, $photo, $bot_url){
+//$bot_url    = "https://api.telegram.org/bot".$api."/";
+$url        = $bot_url . "/sendPhoto?chat_id=" . $chat_id ;
+
+$post_fields = array('chat_id'   => $chat_id,
+    'photo'     => new CURLFile($photo) 
+); 
+// realpath("/path/to/image.png")
+$ch = curl_init(); 
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    "Content-Type:multipart/form-data"
+));
+curl_setopt($ch, CURLOPT_URL, $url); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+$output = curl_exec($ch);
 }
 
 
