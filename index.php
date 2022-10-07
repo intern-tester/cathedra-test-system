@@ -14,10 +14,10 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/info') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
-    $img = 'https://picsum.photos/200/300?random='.mt_rand(1, 5);
-    $bot->sendPhoto($result['message']['chat']['id'], $img);
+    //$img = 'https://picsum.photos/200/300?random='.mt_rand(1, 5);
+    $bot->sendPhoto($result['message']['chat']['id'], 'https://i.picsum.photos/id/535/200/300.jpg?hmac=iN2CqXJjjbBwtMlTUpWyZV6xFRfk_-XSDYRSk2eFbsQ');
 }elseif ($result['message']['text'] == '/doc') {
-    $bot->sendDocument($result['message']['chat']['id'], 'https://picsum.photos/id/237/536/354');
+    $bot->sendDocument($result['message']['chat']['id'], 'https://i.picsum.photos/id/535/200/300.jpg?hmac=iN2CqXJjjbBwtMlTUpWyZV6xFRfk_-XSDYRSk2eFbsQ');
 }elseif ($result['message']['text'] == '/msg') {
     sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
