@@ -15,7 +15,11 @@ if ($result['message']['text'] == '/start') {
     sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
-}elseif ($result['message']['text'] == '/debug') {
+}elseif ($result['message']['text'] == '/key') {
+    sendMessage($result['message']['chat']['id'], "Повідомлення!");
+}
+
+elseif ($result['message']['text'] == '/debug') {
     //file_put_contents('dump.txt', var_dump($result['message']));
     //sendDocument($result['message']['chat']['id'], 'dump.txt');
     //unlink('dump.txt');
@@ -52,9 +56,32 @@ return '
 }
 
 
-// 
+//Base Bot Functions
 
+function sendMessage($chat_id, $message){
+    $bot_url    = "https://api.telegram.org/bot".getenv('API');
+    $url        = $bot_url . "/sendMessage";
+    $keyboard = [
+            'keyboard'=>[
+                [
+                    ['text'=>'Кнопка 1'],['text'=>'Кнопка 2']],
+                    ['Простая кнопка',['text'=>'Кнопка 4']] 
+                ]
+            ];
+    $post_fields = [
+            'chat_id'    => $chat_id,
+            'text'       => $message,
+            'reply_markup' =>Json::encode($keyboard)
+        ];
+    $ch = curl_init(); 
+    curl_setopt($ch, CURLOPT_URL, $url); 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+    $output = curl_exec($ch);
+}
 
+// Send Image File 
+    // img, jpg, png. 
 function sendPhoto($chat_id, $photo){
 $bot_url    = "https://api.telegram.org/bot".getenv('API');
 $url        = $bot_url . "/sendPhoto?chat_id=" . $chat_id ;
@@ -73,6 +100,8 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
 $output = curl_exec($ch);
 }
 
+// Send Document File
+    // doc, docx, txt, json, md5, sql 
 function sendDocument($chat_id, $doc){
 $bot_url    = "https://api.telegram.org/bot".getenv('API');
 $url        = $bot_url . "/sendDocument?chat_id=" . $chat_id ;
@@ -94,6 +123,16 @@ $output = curl_exec($ch);
 
 //print 'Test Cathedra VAR % ' . $namesite; curl -F document=@"path/to/some.file" https://api.telegram.org/bot<token>/sendDocument?chat_id=<chat_id>
 
+/*
+
+$keyboard = [
+    ['7', '8', '9'],
+    ['4', '5', '6'],
+    ['1', '2', '3'],
+         ['0']
+];
+
+*/
 
 
 
