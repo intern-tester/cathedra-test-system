@@ -24,9 +24,8 @@ if ($result['message']['text'] == '/start') {
     $keyboard = [
         ['7', '8', '9'],
         ['4', '5', '6'],
-        ['1', '2', '3'],
-             ['0']
-    ];
+        ['1', '2', '3']
+       ];
     $bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
 }
 
