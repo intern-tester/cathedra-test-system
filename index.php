@@ -13,7 +13,8 @@ if ($result['message']['text'] == '/start') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
 }elseif ($result['message']['text'] == '/img') {
     //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
-    sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg', $bot_url);
+    //sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg', $bot_url);
+    sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }
 
 //// Show Home Page Site. 
@@ -50,8 +51,8 @@ return '
 // 
 
 
-function sendPhoto($chat_id, $photo, $bot_url){
-//$bot_url    = "https://api.telegram.org/bot".$api."/";
+function sendPhoto($chat_id, $photo){
+$bot_url    = "https://api.telegram.org/bot".getenv('API');
 $url        = $bot_url . "/sendPhoto?chat_id=" . $chat_id ;
 
 $post_fields = array('chat_id'   => $chat_id,
