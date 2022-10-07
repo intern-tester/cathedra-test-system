@@ -16,7 +16,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/key') {
-    sendMessage($result['message']['chat']['id'], "Повідомлення!");
+    //sendMessage($result['message']['chat']['id'], "Повідомлення!");
 }
 
 elseif ($result['message']['text'] == '/debug') {
@@ -58,30 +58,7 @@ return '
 
 //Base Bot Functions
 
-function sendMessage($chat_id, $message){
-    $bot_url    = "https://api.telegram.org/bot".getenv('API');
-    $url        = $bot_url . "/sendMessage";
-    $keyboard = [
-            'keyboard'=>[
-                [
-                    ['text'=>'Кнопка 1'],['text'=>'Кнопка 2']],
-                    ['Простая кнопка',['text'=>'Кнопка 4']] 
-                ]
-            ];
-    $post_fields = [
-            'chat_id'    => $chat_id,
-            'text'       => $message,
-            'reply_markup' =>Json::encode($keyboard)
-        ];
-$ch = curl_init(); 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    "Content-Type:multipart/form-data"
-));
-curl_setopt($ch, CURLOPT_URL, $url); 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
-$output = curl_exec($ch);
-}
+
 
 // Send Image File 
     // img, jpg, png. 
