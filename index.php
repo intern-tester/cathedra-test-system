@@ -5,12 +5,9 @@ $token = getenv('API');
 $bot_url = "https://api.telegram.org/bot" . $token;
 
 $result = json_decode(file_get_contents('php://input'), true);
-$callback_query = $result['callback_query'];
+$client = $result['callback_query']['from']['id'];
+$callback_query = $result['callback_query']['id'];
 $callback_data = $callback_query['data'];
-
-if(isset($callback_data)){
-    $bot->sendMessage($result['message']['chat']['id'], "QUERY" . $callback_data);
-}
 
 // Initialisation Bot
 $bot = new BOT();
@@ -34,12 +31,7 @@ if ($result['message']['text'] == '/start') {
        ];
     $bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
 }elseif ($result['message']['text'] == '/callback') {
-    $keyboard = [
-        ['7', '8', '9'],
-        ['4', '5', '6'],
-        ['1', '2', '3']
-       ];
-    $bot->sendCallbackQuery($result['message']['chat']['id'], "CallBack?", $keyboard);
+    $bot->sendCallbackQuery($result['message']['chat']['id'], "CallBack?");
 }
 
 elseif ($result['message']['text'] == '/debug') {
