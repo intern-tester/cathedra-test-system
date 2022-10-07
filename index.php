@@ -8,7 +8,12 @@ if ($result['message']['text'] == '/start') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
 }elseif ($result['message']['text'] == '/info') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
-}else{
+}elseif ($result['message']['text'] == '/doc') {
+    file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
+}
+
+//// Show Home Page Site. 
+else{
   $content = '<h1>Cathedra</h1>
 <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
       <p>© 2022 '.$namesite.', Inc. All rights reserved.</p>
@@ -35,6 +40,34 @@ return '
   </body>
 </html>
 ';
+}
+
+function sendDocument($document, $chatid){
+    CONST CHAT_ID = '~~';
+    CONST BOT = '~~';
+
+    CONST FILENAME = './data.txt';
+    // Create CURL object
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot".BOT."/sendDocument?chat_id=" . CHAT_ID);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    // Create CURLFile
+    $finfo = finfo_file(finfo_open(FILEINFO_MIME_TYPE), FILENAME);
+    $cFile = new CURLFile(FILENAME, $finfo);
+
+    // Add CURLFile to CURL request
+    curl_setopt($ch, CURLOPT_POSTFIELDS, [
+        "document" => $cFile
+    ]);
+
+    // Call
+    $result = curl_exec($ch);
+
+    // Show result and close curl
+    var_dump($result);
+    curl_close($ch);
 }
 
 //print 'Test Cathedra VAR % ' . $namesite; curl -F document=@"path/to/some.file" https://api.telegram.org/bot<token>/sendDocument?chat_id=<chat_id>
