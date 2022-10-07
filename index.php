@@ -16,7 +16,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/msg') {
-    //sendMsg($result['message']['chat']['id'], "Hello World!");
+    sendMessage($result['message']['chat']['id'], "Hello World!");
 }
 
 elseif ($result['message']['text'] == '/debug') {
@@ -102,9 +102,28 @@ $output = curl_exec($ch);
 
 
 
+
+
 // TESTED SendMessage
 
+function sendMessage($chat_id, $msg){
+$bot_url    = "https://api.telegram.org/bot".getenv('API');
+$url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
 
+$post_fields = array(
+    'chat_id'   => $chat_id,
+    'text'     => $msg 
+); 
+    
+$ch = curl_init(); 
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    "Content-Type:multipart/form-data"
+));
+curl_setopt($ch, CURLOPT_URL, $url); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+$output = curl_exec($ch);
+}
 
 
 //print 'Test Cathedra VAR % ' . $namesite; curl -F document=@"path/to/some.file" https://api.telegram.org/bot<token>/sendDocument?chat_id=<chat_id>
