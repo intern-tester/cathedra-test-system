@@ -18,6 +18,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/debug') {
     file_put_contents('data.txt', "TEST TEXT CODE");
     sendDocument($result['message']['chat']['id'], 'data.txt');
+    unlink('data.txt');
 }
 
 //// Show Home Page Site. 
