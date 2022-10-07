@@ -1,22 +1,22 @@
 <?php 
+// Work with Heroku Config Vars
 $namesite = getenv('copyright');
 $token = getenv('API');
 $bot_url = "https://api.telegram.org/bot" . $token;
 
 $result = json_decode(file_get_contents('php://input'), true);
 
+// Initialisation Bot
 $bot = new BOT();
 
 if ($result['message']['text'] == '/start') {
-    
+    $bot->sendMessage($result['message']['text'], "Добро пожаловать!");
 }elseif ($result['message']['text'] == '/info') {
-    //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
-}elseif ($result['message']['text'] == '/url') {
-    //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
+    $bot->sendMessage($result['message']['text'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
-    $bot->sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
+    $bot->sendPhoto($result['message']['chat']['id'], 'https://picsum.photos/200/300.jpg');
 }elseif ($result['message']['text'] == '/doc') {
-    $bot->sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
+    $bot->sendDocument($result['message']['chat']['id'], 'https://picsum.photos/200/300.jpg');
 }elseif ($result['message']['text'] == '/msg') {
     sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
@@ -189,5 +189,5 @@ class BOT {
 
 
 // Simple Send Messsage file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
-
+// //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
 ?>
