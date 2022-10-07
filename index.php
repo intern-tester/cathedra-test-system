@@ -9,12 +9,12 @@ if ($result['message']['text'] == '/start') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
 }elseif ($result['message']['text'] == '/info') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
-}elseif ($result['message']['text'] == '/doc') {
+}elseif ($result['message']['text'] == '/url') {
     file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
 }elseif ($result['message']['text'] == '/img') {
-    //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('https://nuozu.edu.ua/zagruzka2/14_02_22-11.doc'));
-    //sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg', $bot_url);
     sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
+}elseif ($result['message']['text'] == '/doc') {
+    sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }
 
 //// Show Home Page Site. 
@@ -57,6 +57,24 @@ $url        = $bot_url . "/sendPhoto?chat_id=" . $chat_id ;
 
 $post_fields = array('chat_id'   => $chat_id,
     'photo'     => new CURLFile($photo) 
+); 
+// realpath("/path/to/image.png")
+$ch = curl_init(); 
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    "Content-Type:multipart/form-data"
+));
+curl_setopt($ch, CURLOPT_URL, $url); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+$output = curl_exec($ch);
+}
+
+function sendDocument($chat_id, $doc){
+$bot_url    = "https://api.telegram.org/bot".getenv('API');
+$url        = $bot_url . "/sendDocument?chat_id=" . $chat_id ;
+
+$post_fields = array('chat_id'   => $chat_id,
+    'document'     => new CURLFile($doc) 
 ); 
 // realpath("/path/to/image.png")
 $ch = curl_init(); 
