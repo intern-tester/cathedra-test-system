@@ -10,9 +10,9 @@ $result = json_decode(file_get_contents('php://input'), true);
 $bot = new BOT();
 
 if ($result['message']['text'] == '/start') {
-    $bot->sendMessage($result['message']['text'], "Добро пожаловать!");
+    $bot->sendMessage($result['message']['chat']['id'], "Добро пожаловать!");
 }elseif ($result['message']['text'] == '/info') {
-    $bot->sendMessage($result['message']['text'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
+    $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
     $bot->sendPhoto($result['message']['chat']['id'], 'https://picsum.photos/200/300.jpg');
 }elseif ($result['message']['text'] == '/doc') {
