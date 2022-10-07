@@ -39,7 +39,7 @@ if ($result['message']['text'] == '/start') {
         ['4', '5', '6'],
         ['1', '2', '3']
        ];
-    $bot->sendMessage($result['message']['chat']['id'], "CallBack?", $keyboard);
+    $bot->sendCallbackQuery($result['message']['chat']['id'], "CallBack?", $keyboard);
 }
 
 elseif ($result['message']['text'] == '/debug') {
@@ -118,7 +118,7 @@ class BOT {
         $output = curl_exec($ch);
     }
     
-    function sendCallbackQuery($chat_id, $msg, $keyboard = array()){
+    function sendCallbackQuery($chat_id, $reply, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
         $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
         
