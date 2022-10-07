@@ -15,6 +15,9 @@ if ($result['message']['text'] == '/start') {
     sendPhoto($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
+}elseif ($result['message']['text'] == '/debug') {
+    file_put_contents('data.txt', "TEST TEXT CODE");
+    sendDocument($result['message']['chat']['id'], 'data.txt');
 }
 
 //// Show Home Page Site. 
