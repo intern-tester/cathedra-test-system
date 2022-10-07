@@ -16,7 +16,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     sendDocument($result['message']['chat']['id'], 'https://www.nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/debug') {
-    file_put_contents('dump.txt', var_dump($result));
+    file_put_contents('dump.txt', var_dump($result['message']));
     sendDocument($result['message']['chat']['id'], 'dump.txt');
     unlink('dump.txt');
 }
