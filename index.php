@@ -5,9 +5,13 @@ $token = getenv('API');
 $bot_url = "https://api.telegram.org/bot" . $token;
 
 $result = json_decode(file_get_contents('php://input'), true);
-$client = $result['callback_query']['from']['id'];
-$callback_query = $result['callback_query']['id'];
-$callback_data = $callback_query['data'];
+
+// GET CALLBACK
+// $data['callback_query']
+
+//$client = $result['callback_query']['from']['id'];
+//$callback_query = $result['callback_query']['id'];
+//$callback_data = $callback_query['data'];
 
 // Initialisation Bot
 $bot = new BOT();
