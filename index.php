@@ -187,7 +187,7 @@ class BOT {
 
         $post_fields = array(
             'chat_id'   => $chat_id,
-            'resize_keyboard' => true, 
+            //'resize_keyboard' => true, 
             'reply_markup' => $encodedMarkup,
             'text'     => $msg 
         ); 
