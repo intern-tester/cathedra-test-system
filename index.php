@@ -44,6 +44,15 @@ if ($result['message']['text'] == '/start') {
         ['1', '2', '3']
        ];
     $bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
+}elseif ($result['message']['text'] == '/qwery') {
+    
+    //$bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
+    $keyboard = [
+        ["text" => "Button1", "callback_data" => "button1"],
+        ["text" => "Button2", "callback_data" => "button2"]
+    ];    
+    $bot->sendMessage($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);    
+        
 }elseif ($result['message']['text'] == '/callback') {
     $bot->sendCallbackQuery($result['message']['chat']['id'], "CallBack?");
 }
@@ -68,6 +77,29 @@ else{
 
 
 /*
+
+// Create keyboard
+        $data = http_build_query([
+            'text' => 'Please select language;',
+            'chat_id' => $update['message']['from']['id']
+        ]);
+        $keyboard = json_encode([
+            "inline_keyboard" => [
+                [
+                    [
+                        "text" => "english",
+                        "callback_data" => "english"
+                    ],
+                    [
+                        "text" => "russian",
+                        "callback_data" => "russian"
+                    ]
+                ]
+            ]
+        ]);
+
+        // Send keyboard
+        file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
 
 $keyboard = [
     ['7', '8', '9'],
