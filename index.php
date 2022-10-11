@@ -10,12 +10,12 @@ $result = json_decode(file_get_contents('php://input'), true);
 // $data['callback_query']
 
 if (isset($result['callback_query'])) {
-
         // Reply with callback_query data
         $data = http_build_query([
             'text' => 'Selected language: ' . $result['callback_query']['data'],
             'chat_id' => $result['callback_query']['from']['id']
         ]);
+        // Simple send Message
         file_get_contents($bot_url . "/sendMessage?{$data}");
     }
 
