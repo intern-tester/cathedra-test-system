@@ -167,12 +167,23 @@ class BOT {
     function sendNewButton($chat_id, $msg, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
         $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
+            
+        
 
         $replyMarkup = array(
             'keyboard' => $keyboard
         );
         
         $encodedMarkup = json_encode($replyMarkup);    
+            
+        
+        //////////////////////////
+        $options[][] = array('text' => 'New Button', 'callback_data' => 'test-data');
+        $replyMarkup = array('inline_keyboard' => $options);
+        $encodedMarkup = json_encode($replyMarkup, true);    
+        /////////////////////////    
+            
+            
 
         $post_fields = array(
             'chat_id'   => $chat_id,
