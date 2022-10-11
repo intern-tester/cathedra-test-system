@@ -48,7 +48,10 @@ if ($result['message']['text'] == '/start') {
     
     //$bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
     //$bot->sendMessage($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);    
-    $bot->sendNewButton($result['message']['chat']['id'], "Новая клавиатура.");
+    $keyboard = [
+        ['Yes', 'No']
+       ];
+    $bot->sendNewButton($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);
         
         
 }elseif ($result['message']['text'] == '/callback') {
@@ -161,7 +164,7 @@ class BOT {
         $output = curl_exec($ch);
     }
         
-    function sendNewButton($chat_id, $msg){
+    function sendNewButton($chat_id, $msg, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
         $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
 
@@ -186,7 +189,7 @@ class BOT {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
         $output = curl_exec($ch);
-    }    
+    }   
     
     function sendCallbackQuery($chat_id, $reply, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
