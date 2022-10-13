@@ -11,10 +11,14 @@ $result = json_decode(file_get_contents('php://input'), true);
 
 if (isset($result['callback_query'])) {
         // Reply with callback_query data
+        $answer = $result['callback_query']['data'];
+        $chat_id = $result['callback_query']['from']['id'];
+        
         $data = http_build_query([
             'text' => 'Selected language: ' . $result['callback_query']['data'],
             'chat_id' => $result['callback_query']['from']['id']
         ]);
+        //sms($data);
         // Simple send Message
         file_get_contents($bot_url . "/sendMessage?{$data}");
     }
@@ -136,6 +140,11 @@ $keyboard = array(
 class BOT {
     
     //private $bot_url = "https://api.telegram.org/bot".getenv('API');
+        
+    function sms($data){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        file_get_contents($bot_url . "/sendMessage?{$data}");
+    }    
 
     function sendMessage($chat_id, $msg, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
