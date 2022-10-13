@@ -47,7 +47,9 @@ if ($result['message']['text'] == '/start') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/chat') {
     // NEW INLINE MESSAGE    
-    $bot->sendInline($result['message']['chat']['id'], "Ви погоджуєтесь надати згоду на обробку персональних даних?");
+    $bot->sendMessage($result['message']['chat']['id'], "Ви вибрали пункт Чат.");
+    $bot->sendInL($result['message']['chat']['id'], "Ви надаєте згоду на обробку ПД?");    
+    //$bot->sendInline($result['message']['chat']['id'], "Ви погоджуєтесь надати згоду на обробку персональних даних?");
     //$bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
     //$img = 'https://picsum.photos/200/300?random='.mt_rand(1, 5);
@@ -185,6 +187,30 @@ class BOT {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
         $output = curl_exec($ch);
     }
+        
+    function sendInL($chat_id, $msg){
+        $data = http_build_query([
+            'text' => $msg,
+            'chat_id' => $chat_id
+        ]);
+        $keyboard = json_encode([
+            "inline_keyboard" => [
+                [
+                    [
+                        "text" => "Так",
+                        "callback_data" => "access"
+                    ],
+                    [
+                        "text" => "Ні",
+                        "callback_data" => "cancel"
+                    ]
+                ]
+            ]
+        ]);
+
+        // Send keyboard
+        file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
+    }    
         
     function sendInline($chat_id, $msg = ""){
     $data = http_build_query([
