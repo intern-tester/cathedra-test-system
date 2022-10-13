@@ -1,4 +1,5 @@
 // INLINE MD
+<?php 
 $update = json_decode(file_get_contents('php://input'), TRUE);
 
     $botToken = getenv('API');
@@ -42,3 +43,5 @@ $update = json_decode(file_get_contents('php://input'), TRUE);
         // Send keyboard
         file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
     }
+
+?>
