@@ -31,7 +31,11 @@ if (isset($result['callback_query'])) {
         ]);
         //sms($data);
         // Simple send Message
-        file_get_contents($bot_url . "/sendMessage?{$data}");
+        
+        $bot->sendMessage($result['message']['chat']['id'], "Отримано!");
+        
+        //file_get_contents($bot_url . "/sendMessage?{$data}");
+        
 }
 
 //$client = $result['callback_query']['from']['id'];
