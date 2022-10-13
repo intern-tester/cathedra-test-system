@@ -189,11 +189,10 @@ class BOT {
     }
         
     function sendInL($chat_id, $msg){
-        $data = http_build_query([
-            'text' => $msg,
-            'chat_id' => $chat_id
-        ]);
-        $keyboard = json_encode([
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
+            
+        $keyboard = [
             "inline_keyboard" => [
                 [
                     [
@@ -206,10 +205,34 @@ class BOT {
                     ]
                 ]
             ]
-        ]);
+        ];
+            
+       
+
+        $replyMarkup = array(
+            'keyboard' => $keyboard
+        );
+        
+        $encodedMarkup = json_encode($replyMarkup);    
+
+        $post_fields = array(
+            'chat_id'   => $chat_id,
+            'resize_keyboard' => true, 
+            'reply_markup' => $encodedMarkup,
+            'text'     => $msg 
+        ); 
+
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+        $output = curl_exec($ch);    
 
         // Send keyboard
-        file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
+        //file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
     }    
         
     function sendInline($chat_id, $msg = ""){
