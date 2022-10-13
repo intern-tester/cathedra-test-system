@@ -17,7 +17,7 @@ if (isset($result['callback_query'])) {
         $chat_id = $result['callback_query']['from']['id'];
         
         
-        if($answer == "access"){
+        if($answer == "data-access"){
                 $bot->sendMessage($chat_id, "Вітаю Ви надали згоду на обробку інформації. ");
         }elseif($answer == "cancel"){
                 $bot->sendMessage($chat_id, "Нажаль Ви не надали згоду на обробку персональної інформації");
@@ -268,7 +268,7 @@ class BOT {
             
         
         //////////////////////////
-        $options[][] = array('text' => 'New Button', 'callback_data' => 'test-data');
+        $options[][] = array('text' => 'Так', 'callback_data' => 'data-access');
         $replyMarkup = array('inline_keyboard' => $options);
         $encodedMarkup = json_encode($replyMarkup, true);    
         /////////////////////////    
