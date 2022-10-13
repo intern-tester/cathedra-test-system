@@ -25,13 +25,13 @@ if (isset($result['callback_query'])) {
         
         
         
-        //$data = http_build_query([
-        //    'text' => 'Selected language: ' . $result['callback_query']['data'],
-        //    'chat_id' => $result['callback_query']['from']['id']
-        //]);
+        $data = http_build_query([
+            'text' => 'Selected language: ' . $result['callback_query']['data'],
+            'chat_id' => $result['callback_query']['from']['id']
+        ]);
         //sms($data);
         // Simple send Message
-        //file_get_contents($bot_url . "/sendMessage?{$data}");
+        file_get_contents($bot_url . "/sendMessage?{$data}");
 }
 
 //$client = $result['callback_query']['from']['id'];
