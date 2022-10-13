@@ -13,20 +13,20 @@ $result = json_decode(file_get_contents('php://input'), true);
 // CALLBACK QUERY HANDLER
 if (isset($result['callback_query'])) {
         // Reply with callback_query data
-        $answer = $result['callback_query']['data'];
-        $chat_id = $result['callback_query']['from']['id'];
+        //$answer = $result['callback_query']['data'];
+        //$chat_id = $result['callback_query']['from']['id'];
         
         
-        if($answer == "data-access"){
-                $bot->sendMessage($chat_id, "Вітаю Ви надали згоду на обробку інформації. ");
-        }elseif($answer == "cancel"){
-                $bot->sendMessage($chat_id, "Нажаль Ви не надали згоду на обробку персональної інформації");
-        }
+        //if($answer == "data-access"){
+        //        $bot->sendMessage($chat_id, "Вітаю Ви надали згоду на обробку інформації. ");
+        //}elseif($answer == "cancel"){
+        //        $bot->sendMessage($chat_id, "Нажаль Ви не надали згоду на обробку персональної інформації");
+        //}
         
         
         
         $data = http_build_query([
-            'text' => 'Selected language: ' . $result['callback_query']['data'],
+            'text' => 'Ви вибрали: ' . $result['callback_query']['data'],
             'chat_id' => $result['callback_query']['from']['id']
         ]);
         //sms($data);
