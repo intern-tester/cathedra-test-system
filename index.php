@@ -18,9 +18,9 @@ if (isset($result['callback_query'])) {
         
         
         if($answer == "access"){
-                sendMessage($chat_id, "Вітаю Ви надали згоду на обробку інформації. ");
+                $bot->sendMessage($chat_id, "Вітаю Ви надали згоду на обробку інформації. ");
         }elseif($answer == "cancel"){
-                sendMessage($chat_id, "Нажаль Ви не надали згоду на обробку персональної інформації");
+                $bot->sendMessage($chat_id, "Нажаль Ви не надали згоду на обробку персональної інформації");
         }
         
         
@@ -47,7 +47,7 @@ if ($result['message']['text'] == '/start') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/chat') {
     // NEW INLINE MESSAGE    
-    sendInline($result['message']['chat']['id'], "Ви погоджуєтесь надати згоду на обробку персональних даних?");
+    $bot->sendInline($result['message']['chat']['id'], "Ви погоджуєтесь надати згоду на обробку персональних даних?");
     //$bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
     //$img = 'https://picsum.photos/200/300?random='.mt_rand(1, 5);
