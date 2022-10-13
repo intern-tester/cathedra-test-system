@@ -9,19 +9,25 @@ $result = json_decode(file_get_contents('php://input'), true);
 // GET CALLBACK
 // $data['callback_query']
 
+
+// CALLBACK QUERY HANDLER
 if (isset($result['callback_query'])) {
         // Reply with callback_query data
         $answer = $result['callback_query']['data'];
         $chat_id = $result['callback_query']['from']['id'];
         
-        $data = http_build_query([
-            'text' => 'Selected language: ' . $result['callback_query']['data'],
-            'chat_id' => $result['callback_query']['from']['id']
-        ]);
+        //if($answer == ""){}
+        
+        
+        
+        //$data = http_build_query([
+        //    'text' => 'Selected language: ' . $result['callback_query']['data'],
+        //    'chat_id' => $result['callback_query']['from']['id']
+        //]);
         //sms($data);
         // Simple send Message
-        file_get_contents($bot_url . "/sendMessage?{$data}");
-    }
+        //file_get_contents($bot_url . "/sendMessage?{$data}");
+}
 
 //$client = $result['callback_query']['from']['id'];
 //$callback_query = $result['callback_query']['id'];
@@ -34,6 +40,9 @@ if ($result['message']['text'] == '/start') {
     $bot->sendMessage($result['message']['chat']['id'], "Добро пожаловать!");
 }elseif ($result['message']['text'] == '/info') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
+}elseif ($result['message']['text'] == '/chat') {
+    // NEW INLINE MESSAGE    
+    //$bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
     //$img = 'https://picsum.photos/200/300?random='.mt_rand(1, 5);
     $bot->sendPhoto($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
@@ -58,8 +67,6 @@ if ($result['message']['text'] == '/start') {
     $bot->sendNewButton($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);
         
         
-}elseif ($result['message']['text'] == '/callback') {
-    $bot->sendCallbackQuery($result['message']['chat']['id'], "CallBack?");
 }
 
 elseif ($result['message']['text'] == '/debug') {
