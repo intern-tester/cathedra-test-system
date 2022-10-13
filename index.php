@@ -47,8 +47,10 @@ if ($result['message']['text'] == '/start') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/chat') {
     // NEW INLINE MESSAGE    
-    $bot->sendMessage($result['message']['chat']['id'], "Ви вибрали пункт Чат.");
-    $bot->sendInL($result['message']['chat']['id'], "Ви надаєте згоду на обробку ПД?");    
+    $keyboard = [
+        ['text' => 'Yes', 'callback_data' => 'data-access']
+       ];
+    $bot->sendNewButton($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);
     //$bot->sendInline($result['message']['chat']['id'], "Ви погоджуєтесь надати згоду на обробку персональних даних?");
     //$bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/img') {
