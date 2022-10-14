@@ -45,10 +45,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     $bot->sendDocument($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/inline') {
-    $keyboard = array(
-            array('text' => 'Перейти до тесту', 'callback_data' => 'data-depression-start'),
-            array('text' => 'Я хочу закінчити', 'callback_data' => 'data-end')
-    );
+    $keyboard = ['text' => 'Перейти до тесту', 'callback_data' => 'data-depression-start'];
             
     $bot->sendInline($result['message']['chat']['id'], "Підтверджуєте свій вибір?", $keyboard);    
     //$bot->sendMessage($result['message']['chat']['id'], "Hello World!");
