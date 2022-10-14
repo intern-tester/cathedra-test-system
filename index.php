@@ -22,6 +22,8 @@ if (isset($result['callback_query'])) {
         }elseif($result['callback_query']['data'] == "data-end"){
                 $bot->sendMessage($result['callback_query']['from']['id'], "Шкода, що ми не змогли Вам допомогти. ");
         }
+        
+        empty($result['callback_query']);
         //$bot->sendMessage($result['callback_query']['from']['id'], "Ви вибрали доступ:" . $result['callback_query']['data']);
 }
 
