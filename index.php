@@ -9,24 +9,15 @@ $bot = new Bot();
 
     // Callback Query Handler
     if (isset($update['callback_query'])) {
-        if($update['callback_query']['data'] == "access"){
-            $bot->sendMessage($update['callback_query']['from']['id'], "You send CALLBACKDATA:" . $update['callback_query']['data']);
-        }else{
-            
-            $data = http_build_query([
-                'text' => 'Log: ' . $update['callback_query']['data'],
-                'chat_id' => $update['callback_query']['from']['id']
-            ]);
+        
+        // Reply with callback_query data
+        $data = http_build_query([
+            'text' => 'Selected language: ' . $update['callback_query']['data'],
+            'chat_id' => $update['callback_query']['from']['id']
+        ]);
+        
         file_get_contents($botAPI . "/sendMessage?{$data}");
         
-        }
-
-        // Reply with callback_query data
-        //$data = http_build_query([
-        //    'text' => 'Selected language: ' . $update['callback_query']['data'],
-        //    'chat_id' => $update['callback_query']['from']['id']
-        //]);
-        //file_get_contents($botAPI . "/sendMessage?{$data}");
     }
 
     // Check for normal command
