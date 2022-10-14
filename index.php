@@ -23,7 +23,13 @@ $bot = new Bot();
     // Check for normal command
     $msg = $update['message']['text'];
     if ($msg === "/start") {
-        $bot->sendMessage($update['message']['from']['id'], "Hello");
+        $data = http_build_query([
+            'text' => 'Selected language: ' . $update['callback_query']['data'],
+            'chat_id' => $update['message']['from']['id']
+        ]);
+        
+        file_get_contents($botAPI . "/sendMessage?{$data}");
+        //$bot->sendMessage($update['message']['from']['id'], "Hello");
         //$bot->sendInline($update['message']['from']['id'], "START"); 
     }elseif($msg === "/chat"){
         //$bot->sendInline($update['message']['from']['id'], "CHAT");
