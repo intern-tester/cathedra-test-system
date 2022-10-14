@@ -32,9 +32,9 @@ $bot = new Bot();
     // Check for normal command
     $msg = $update['message']['text'];
     if ($msg === "/start") {
-        $bot->sendInline($update['message']['from']['id']); 
+        $bot->sendInline($update['message']['from']['id'], "START"); 
     }elseif($msg === "/chat"){
-        $bot->sendInline($update['message']['from']['id'], "");
+        $bot->sendInline($update['message']['from']['id'], "CHAT");
     }else{
         print "Hello World!";
     }
