@@ -20,7 +20,7 @@ if (isset($result['callback_query'])) {
         }
         
         
-        $bot->sendMessage($result['callback_query']['from']['id'], "Ви вибрали доступ:" . $result['callback_query']['data']);
+        //$bot->sendMessage($result['callback_query']['from']['id'], "Ви вибрали доступ:" . $result['callback_query']['data']);
         
 }
 
