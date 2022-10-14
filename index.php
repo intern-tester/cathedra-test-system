@@ -17,11 +17,12 @@ $bot = new BOT();
 if (isset($result['callback_query'])) {
         if($result['callback_query']['data'] == "data-access"){
                 $bot->sendMessage($result['callback_query']['from']['id'], "Дякуємо. Ви надали доступ до персональної інформації");
+        }elseif($result['callback_query']['data'] == "data-depression-start"){
+                $bot->sendMessage($result['callback_query']['from']['id'], "Розпочинаємо тест депресії");
+        }elseif($result['callback_query']['data'] == "data-end"){
+                $bot->sendMessage($result['callback_query']['from']['id'], "Шкода, що ми не змогли Вам допомогти. ");
         }
-        
-        
         //$bot->sendMessage($result['callback_query']['from']['id'], "Ви вибрали доступ:" . $result['callback_query']['data']);
-        
 }
 
 
@@ -44,7 +45,11 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     $bot->sendDocument($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/inline') {
-    $keyboard = array('text' => 'Так', 'callback_data' => 'data-access');
+    $keyboard = array(
+            array('text' => 'Перейти до тесту', 'callback_data' => 'data-depression-start'),
+            array('text' => 'Я хочу закінчити', 'callback_data' => 'data-end')
+    );
+            
     $bot->sendInline($result['message']['chat']['id'], "Підтверджуєте свій вибір?", $keyboard);    
     //$bot->sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
