@@ -15,46 +15,16 @@ $bot = new BOT();
 
 // CALLBACK QUERY HANDLER
 if (isset($result['callback_query'])) {
+        
         // Reply with callback_query data
-        //$answer = $result['callback_query']['data'];
-        //$chat_id = $result['callback_query']['from']['id'];
-        
-        
-        //if($answer == "data-access"){
-        //        $bot->sendMessage($chat_id, "Вітаю Ви надали згоду на обробку інформації. ");
-        //}elseif($answer == "cancel"){
-        //        $bot->sendMessage($chat_id, "Нажаль Ви не надали згоду на обробку персональної інформації");
-        //}
-        
-        
-        
         $data = http_build_query([
             'text' => 'Ви вибрали: ' . $result['callback_query']['data'],
-            'chat_id' => $result['callback_query']['from']['id']
-        ]);
-        //sms($data);
-        // Simple send Message
-        
-        
-        
-        $bot->sendMessage($result['message']['chat']['id'], "Отримано!");
-        
-        //file_get_contents($bot_url . "/sendMessage?{$data}");
-        
-}
-
-
-if (isset($result['callback_query'])) {
-        
-        // Reply with callback_query data
-        $data = http_build_query([
-            'text' => 'Selected language: ' . $result['callback_query']['data'],
             'chat_id' => $result['callback_query']['from']['id']
         ]);
         
         file_get_contents($bot_url . "/sendMessage?{$data}");
         
-    }
+}
 
 
 //$client = $result['callback_query']['from']['id'];
