@@ -15,16 +15,12 @@ $bot = new BOT();
 
 // CALLBACK QUERY HANDLER
 if (isset($result['callback_query'])) {
+        if($result['callback_query'] == "data-access"){
+                $bot->sendMessage($result['callback_query']['from']['id'], "Дякуємо. Ви надали доступ до персональної інформації");
+        }
         
-        // Reply with callback_query data
-        $data = http_build_query([
-            'text' => 'Ви вибрали: ' . $result['callback_query']['data'],
-            'chat_id' => $result['callback_query']['from']['id']
-        ]);
         
-        //file_get_contents($bot_url . "/sendMessage?{$data}");
-        
-        $bot->sendMessage($result['callback_query']['from']['id'], "Ви вибрали доступ:" . $result['callback_query']['data']);
+        //$bot->sendMessage($result['callback_query']['from']['id'], "Ви вибрали доступ:" . $result['callback_query']['data']);
         
 }
 
