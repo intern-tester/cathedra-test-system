@@ -25,11 +25,6 @@ if (isset($result['callback_query'])) {
 }
 
 
-//$client = $result['callback_query']['from']['id'];
-//$callback_query = $result['callback_query']['id'];
-//$callback_data = $callback_query['data'];
-
-
 
 if ($result['message']['text'] == '/start') {
     $bot->sendMessage($result['message']['chat']['id'], "Добро пожаловать!");
@@ -48,8 +43,8 @@ if ($result['message']['text'] == '/start') {
     $bot->sendPhoto($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/doc') {
     $bot->sendDocument($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
-}elseif ($result['message']['text'] == '/msg') {
-    $bot->sendMessage($result['message']['chat']['id'], "Hello World!");
+}elseif ($result['message']['text'] == '/') {
+    //$bot->sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
     $keyboard = [
         ['7', '8', '9'],
@@ -142,11 +137,15 @@ $keyboard = array(
   ) 
 );
 
+
+
+//$client = $result['callback_query']['from']['id'];
+//$callback_query = $result['callback_query']['id'];
+//$callback_data = $callback_query['data'];
+
 */
 
 class BOT {
-    
-    //private $bot_url = "https://api.telegram.org/bot".getenv('API');
         
     function sms($data){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
@@ -179,93 +178,23 @@ class BOT {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
         $output = curl_exec($ch);
     }
-        
-    function sendInL($chat_id, $msg){
-        $bot_url    = "https://api.telegram.org/bot".getenv('API');
-        $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
-            
-        $keyboard = [
-            "inline_keyboard" => [
-                [
-                    [
-                        "text" => "Так",
-                        "callback_data" => "access"
-                    ],
-                    [
-                        "text" => "Ні",
-                        "callback_data" => "cancel"
-                    ]
-                ]
-            ]
-        ];
-            
-       
-
-        $replyMarkup = array(
-            'keyboard' => $keyboard
-        );
-        
-        $encodedMarkup = json_encode($replyMarkup);    
-
-        $post_fields = array(
-            'chat_id'   => $chat_id,
-            'resize_keyboard' => true, 
-            'reply_markup' => $encodedMarkup,
-            'text'     => $msg 
-        ); 
-
-        $ch = curl_init(); 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-Type:multipart/form-data"
-        ));
-        curl_setopt($ch, CURLOPT_URL, $url); 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
-        $output = curl_exec($ch);    
-
-        // Send keyboard
-        //file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
-    }    
-        
-    function sendInline($chat_id, $msg = ""){
-    $data = http_build_query([
-            'text' => $msg,
-            'chat_id' => $chat_id
-        ]);
-        $keyboard = json_encode([
-            "inline_keyboard" => [
-                [
-                    [ "text" => "Так","callback_data" => "access" ],
-                    [ "text" => "Ні", "callback_data" => "cancel" ]
-                ]
-            ]
-        ]);
-                
-
-        // Send keyboard
-        file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
-    }    
-        
+    
+    // WORKED INLINE     
     function sendNewButton($chat_id, $msg, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
         $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
-            
-        
 
-        $replyMarkup = array(
-            'keyboard' => $keyboard
-        );
+        //$replyMarkup = array(
+        //    'keyboard' => $keyboard
+        //);
         
-        $encodedMarkup = json_encode($replyMarkup);    
+        //$encodedMarkup = json_encode($replyMarkup);    
             
-        
         //////////////////////////
         $options[][] = array('text' => 'Так', 'callback_data' => 'data-access');
         $replyMarkup = array('inline_keyboard' => $options);
         $encodedMarkup = json_encode($replyMarkup, true);    
         /////////////////////////    
-            
-            
 
         $post_fields = array(
             'chat_id'   => $chat_id,
@@ -284,53 +213,7 @@ class BOT {
         $output = curl_exec($ch);
     }   
     
-    function sendCallbackQuery($chat_id, $reply, $keyboard = array()){
-        $bot_url    = "https://api.telegram.org/bot".getenv('API');
-        $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
-        
-        $keyboard = array(
-          "inline_keyboard" => array( // inline_keyboard not keyboard
-            array(
-              array( 
-                "text" => "Button1", 
-                "callback_data" => "1", 
-              ), 
-              array( 
-                "text" => "Button2", 
-                "callback_data" => "2", 
-              ), 
-            )
-          ) //Removed onetimekeyboard etc.
-        );
-        
-        $postfields = array( 
-          'chat_id' => $chat_id,
-          'text' => $reply, 
-          'reply_markup' => json_encode($keyboard) 
-        );
-
-        $replyMarkup = array(
-            'keyboard' => $keyboard
-        );
-        
-        $encodedMarkup = json_encode($replyMarkup);    
-
-        $post_fields = array(
-            'chat_id'   => $chat_id,
-            //'resize_keyboard' => true, 
-            'reply_markup' => $encodedMarkup,
-            'text'     => $msg 
-        ); 
-
-        $ch = curl_init(); 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-Type:multipart/form-data"
-        ));
-        curl_setopt($ch, CURLOPT_URL, $url); 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
-        $output = curl_exec($ch);
-    }
+   
     
     function sendDocument($chat_id, $doc){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
