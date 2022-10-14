@@ -43,7 +43,9 @@ if ($result['message']['text'] == '/start') {
     $bot->sendPhoto($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/doc') {
     $bot->sendDocument($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
-}elseif ($result['message']['text'] == '/') {
+}elseif ($result['message']['text'] == '/inline') {
+    $keyboard = array('text' => 'Так', 'callback_data' => 'data-access');
+    $bot->sendInline($result['message']['chat']['id'], "Підтверджуєте свій вибір?", $keyboard);    
     //$bot->sendMessage($result['message']['chat']['id'], "Hello World!");
 }elseif ($result['message']['text'] == '/message') {
     $keyboard = [
@@ -145,12 +147,7 @@ $keyboard = array(
 
 */
 
-class BOT {
-        
-    function sms($data){
-        $bot_url    = "https://api.telegram.org/bot".getenv('API');
-        file_get_contents($bot_url . "/sendMessage?{$data}");
-    }    
+class BOT {  
 
     function sendMessage($chat_id, $msg, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
@@ -178,6 +175,33 @@ class BOT {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
         $output = curl_exec($ch);
     }
+        
+    function sendInline($chat_id, $msg, $keyboard = array()){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ; 
+            
+        ////////// OPTIONS ////////////////
+        //$options[][] = array('text' => 'Так', 'callback_data' => 'data-access');
+        $options[][] = $keyboard;  
+        $replyMarkup = array('inline_keyboard' => $options);
+        $encodedMarkup = json_encode($replyMarkup, true);    
+        ///////////////////////////////////  
+
+        $post_fields = array(
+            'chat_id'   => $chat_id,
+            'reply_markup' => $encodedMarkup,
+            'text'     => $msg 
+        ); 
+
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+        $output = curl_exec($ch);
+    }       
     
     // WORKED INLINE     
     function sendNewButton($chat_id, $msg, $keyboard = array()){
@@ -222,7 +246,7 @@ class BOT {
         $post_fields = array('chat_id'   => $chat_id,
             'document'     => new CURLFile($doc) 
         ); 
-        // realpath("/path/to/image.png")
+        // realpath("/path/to/image.png")   // if its real file on local server
         $ch = curl_init(); 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             "Content-Type:multipart/form-data"
@@ -271,6 +295,13 @@ class BOT {
 }
 
 /*
+
+function sms($data){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        file_get_contents($bot_url . "/sendMessage?{$data}");
+    }  
+
+
 // Worked sendMessage with keyboard
 function sendMessage($chat_id, $msg){
 $bot_url    = "https://api.telegram.org/bot".getenv('API');
