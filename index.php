@@ -22,7 +22,9 @@ if (isset($result['callback_query'])) {
             'chat_id' => $result['callback_query']['from']['id']
         ]);
         
-        file_get_contents($bot_url . "/sendMessage?{$data}");
+        //file_get_contents($bot_url . "/sendMessage?{$data}");
+        
+        $bot->sendMessage($result['callback_query']['from']['id'], "Ви вибрали доступ:" . $result['callback_query']['data']);
         
 }
 
