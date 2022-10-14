@@ -6,6 +6,9 @@ $bot_url = "https://api.telegram.org/bot" . $token;
 
 $result = json_decode(file_get_contents('php://input'), true);
 
+// Initialisation Bot
+$bot = new BOT();
+
 // GET CALLBACK
 // $data['callback_query']
 
@@ -32,18 +35,33 @@ if (isset($result['callback_query'])) {
         //sms($data);
         // Simple send Message
         
+        
+        
         $bot->sendMessage($result['message']['chat']['id'], "Отримано!");
         
         //file_get_contents($bot_url . "/sendMessage?{$data}");
         
 }
 
+
+if (isset($update['callback_query'])) {
+        
+        // Reply with callback_query data
+        $data = http_build_query([
+            'text' => 'Selected language: ' . $update['callback_query']['data'],
+            'chat_id' => $update['callback_query']['from']['id']
+        ]);
+        
+        file_get_contents($bot_url . "/sendMessage?{$data}");
+        
+    }
+
+
 //$client = $result['callback_query']['from']['id'];
 //$callback_query = $result['callback_query']['id'];
 //$callback_data = $callback_query['data'];
 
-// Initialisation Bot
-$bot = new BOT();
+
 
 if ($result['message']['text'] == '/start') {
     $bot->sendMessage($result['message']['chat']['id'], "Добро пожаловать!");
