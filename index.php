@@ -45,8 +45,8 @@ class Bot(){
     
     function sendMessage($chat, $msg){
         $data = http_build_query([
-            'text' => $msg,
-            'chat_id' => $chat
+            'text' => "HELLO",
+            'chat_id' => $update['message']['from']['id']
         ]);
         file_get_contents($botAPI . "/sendMessage?{$data}");
     }
