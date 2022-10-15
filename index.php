@@ -9,10 +9,6 @@ $result = json_decode(file_get_contents('php://input'), true);
 // Initialisation Bot
 $bot = new BOT();
 
-// GET CALLBACK
-// $data['callback_query']
-
-
 // CALLBACK QUERY HANDLER
 if (isset($result['callback_query'])) {
         if($result['callback_query']['data'] == "data-access"){
@@ -35,9 +31,7 @@ if ($result['message']['text'] == '/start') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/chat') {
     // NEW INLINE MESSAGE    
-    $keyboard = [
-        ['text' => 'Yes', 'callback_data' => 'data-access']
-       ];
+    $keyboard = [ ['text' => 'Yes', 'callback_data' => 'data-access'] ];
     $bot->sendNewButton($result['message']['chat']['id'], "Ви погоджуєтесь надати згоду на обробку персональних даних?", $keyboard);
     //$bot->sendInline($result['message']['chat']['id'], "Ви погоджуєтесь надати згоду на обробку персональних даних?");
     //$bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
