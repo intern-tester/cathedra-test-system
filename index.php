@@ -30,7 +30,7 @@ if (isset($result['callback_query'])) {
 
 
 if ($result['message']['text'] == '/start') {
-    $bot->sendMessage($result['message']['chat']['id'], "Добро пожаловать!");
+    $bot->sendMessage($result['message']['chat']['id'], "Вітаємо Вас. Користуючись цим ботом ми можемо гарантувати Вам безмеку Ваших персональних даних, все що ви заповнюєте у даному боті є асолютно конфедінційними. Для продовження перейдіть до розділу надання конфедінційної інформації /access!");
 }elseif ($result['message']['text'] == '/info') {
     $bot->sendMessage($result['message']['chat']['id'], 'Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації.');
 }elseif ($result['message']['text'] == '/chat') {
@@ -46,28 +46,19 @@ if ($result['message']['text'] == '/start') {
     $bot->sendPhoto($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/doc') {
     $bot->sendDocument($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
-}elseif ($result['message']['text'] == '/inline') {
-    $keyboard = ['text' => 'Перейти до тесту', 'callback_data' => 'data-depression-start'];
-            
+}elseif ($result['message']['text'] == '/access') {
+    $keyboard = ['text' => 'Я надаю згоду на обробку моєї персональної інформації. ', 'callback_data' => 'data-access'];    
     $bot->sendInline($result['message']['chat']['id'], "Підтверджуєте свій вибір?", $keyboard);    
-    //$bot->sendMessage($result['message']['chat']['id'], "Hello World!");
-}elseif ($result['message']['text'] == '/message') {
+}elseif ($result['message']['text'] == '/keyboard') {
     $keyboard = [
         ['7', '8', '9'],
         ['4', '5', '6'],
         ['1', '2', '3']
        ];
     $bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
-}elseif ($result['message']['text'] == '/qwery') {
-    
-    //$bot->sendMessage($result['message']['chat']['id'], "Выберите чысло от 0 до 9?", $keyboard);
-    //$bot->sendMessage($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);    
-    $keyboard = [
-        ['Yes', 'No']
-       ];
-    $bot->sendNewButton($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);
-        
-        
+}elseif ($result['message']['text'] == '/newbutton') {  
+    $keyboard = [ ['Yes', 'No'] ];
+    $bot->sendNewButton($result['message']['chat']['id'], "Новая клавиатура.", $keyboard);    
 }
 
 elseif ($result['message']['text'] == '/debug') {
