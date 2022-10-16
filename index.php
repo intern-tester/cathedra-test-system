@@ -42,8 +42,9 @@ if ($result['message']['text'] == '/start') {
     $bot->sendDocument($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/access') {
     $keyboard = ['text' => 'Так', 'callback_data' => 'data-access'];     
-            
-    $bot->sendInline($result['message']['chat']['id'], "Я надаю згоду на обробку моєї персональної інформації. ", $keyboard);    
+    // sendInKey        
+    //$bot->sendInline($result['message']['chat']['id'], "Я надаю згоду на обробку моєї персональної інформації. ", $keyboard); 
+      $bot->sendInKey($result['message']['chat']['id'], "Я надаю згоду на обробку моєї персональної інформації. ", $keyboard); 
 }elseif ($result['message']['text'] == '/keyboard') {
     $keyboard = [
         ['7', '8', '9'],
@@ -192,6 +193,55 @@ class BOT {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
         $output = curl_exec($ch);
     }       
+        
+    function sendInKey($chat_id, $msg, $keyboard = array()){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ; 
+            
+        ////////// OPTIONS ////////////////
+        //$options[][] = array('text' => 'Так', 'callback_data' => 'data-access');
+            
+        //$options[][] = $keyboard;  
+        //$replyMarkup = array('inline_keyboard' => $options);
+        //$encodedMarkup = json_encode($replyMarkup, true);    
+        ///////////////////////////////////
+            
+        $encodedMarkup = json_encode([
+                "inline_keyboard" => [
+                    [
+                        [
+                            "text" => "Так",
+                            "callback_data" => "data-access"
+                        ],
+                        [
+                            "text" => "Ні",
+                            "callback_data" => "data-cancel"
+                        ],
+                        [
+                            "text" => "Відміна",
+                            "callback_data" => "data-cancel"
+                        ]
+                    ]
+                ]
+        ]);
+            
+        //////////////////////////////////    
+
+        $post_fields = array(
+            'chat_id'   => $chat_id,
+            'reply_markup' => $encodedMarkup,
+            'text'     => $msg 
+        ); 
+
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+        $output = curl_exec($ch);
+    }           
     
     // WORKED INLINE     
     function sendNewButton($chat_id, $msg, $keyboard = array()){
