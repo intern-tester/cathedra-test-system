@@ -41,10 +41,7 @@ if ($result['message']['text'] == '/start') {
 }elseif ($result['message']['text'] == '/doc') {
     $bot->sendDocument($result['message']['chat']['id'], 'https://nuozu.edu.ua/images/Onas/Pidrozdil/burlakova.jpg');
 }elseif ($result['message']['text'] == '/access') {
-    //$keyboard = ['text' => 'Так', 'callback_data' => 'data-access'];    
-    $keyboard = [
-        ['text' => 'Так', 'callback_data' => 'data-access'], ['text' => 'Ні', 'callback_data' => 'data-access']
-    ]; 
+    $keyboard = ['text' => 'Так', 'callback_data' => 'data-access'];     
             
     $bot->sendInline($result['message']['chat']['id'], "Я надаю згоду на обробку моєї персональної інформації. ", $keyboard);    
 }elseif ($result['message']['text'] == '/keyboard') {
