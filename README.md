@@ -34,7 +34,7 @@ Telegram requires [PHP](https://www.php.net) v7.0+ to run.
 
 If you use Heroku WebApp: Set in Heroku settings `ConfigVars`: 
 `API` : `1234:000000` - Telegram bot token.
-> Note: `API` is required on Heroku WebApp Settings. It needed to create Webhook and properly work bot. To get this Token, you needed go to `@BotFather` and select `API Token`.
+> Note: `API` is required on Heroku WebApp Settings. It needed to create Webhook for properly work bot. To get this Token, you needed go to `@BotFather` and select `API Token`.
 
 ## Usage
 To preperly work bot, neede get _$token_ from _Heroku ConfigVars_:
