@@ -1,0 +1,45 @@
+/// //// //// NOTES
+
+/*
+
+function sms($data){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        file_get_contents($bot_url . "/sendMessage?{$data}");
+    }  
+
+
+// Worked sendMessage with keyboard
+function sendMessage($chat_id, $msg){
+$bot_url    = "https://api.telegram.org/bot".getenv('API');
+$url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ;
+    
+$replyMarkup = array(
+    'keyboard' => array(
+        array("A", "B")
+    )
+);
+$encodedMarkup = json_encode($replyMarkup);    
+
+$post_fields = array(
+    'chat_id'   => $chat_id,
+    'reply_markup' => $encodedMarkup,
+    'text'     => $msg 
+); 
+    
+$ch = curl_init(); 
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    "Content-Type:multipart/form-data"
+));
+curl_setopt($ch, CURLOPT_URL, $url); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+$output = curl_exec($ch);
+}
+
+
+*/
+
+
+
+// Simple Send Messsage file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Welcom on ONSET'));
+// //file_get_contents("https://api.telegram.org/bot" . $token . "/sendMessage?chat_id=" . $result['message']['chat']['id'] . "&text=" . urlencode('Даний Бот розроблено для скринінгових опитувань. Коли Ви починаєте проходити опитування Ви погоджуєтесь зі правилами надання персональної інформації. '));
