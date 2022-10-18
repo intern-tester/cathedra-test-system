@@ -45,6 +45,9 @@ if ($result['message']['text'] == '/start') {
     // sendInKey        
     //$bot->sendInline($result['message']['chat']['id'], "Я надаю згоду на обробку моєї персональної інформації. ", $keyboard); 
       $bot->sendInKey($result['message']['chat']['id'], "Я надаю згоду на обробку моєї персональної інформації. ", $keyboard); 
+}elseif ($result['message']['text'] == '/inchat') {
+      $keyboard = ['text' => 'Так', 'callback_data' => 'data-access'];        
+      $bot->sendInChat($result['message']['chat']['id'], "Я надаю згоду на обробку моєї персональної інформації. ", $keyboard); 
 }elseif ($result['message']['text'] == '/keyboard') {
     $keyboard = [
         ['7', '8', '9'],
@@ -193,6 +196,47 @@ class BOT {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
         $output = curl_exec($ch);
     }       
+        
+    function sendInChat($chat_id, $msg, $keyboard = array()){
+        $bot_url    = "https://api.telegram.org/bot".getenv('API');
+        $url        = $bot_url . "/sendMessage?chat_id=" . $chat_id ; 
+            
+        ////////// OPTIONS ////////////////
+        //$options[][] = array('text' => 'Так', 'callback_data' => 'data-access');
+            
+        //$options[][] = $keyboard;  
+        //$replyMarkup = array('inline_keyboard' => $options);
+        //$encodedMarkup = json_encode($replyMarkup, true);    
+        ///////////////////////////////////
+            
+        $keyboard = [
+                [
+                        ["text" => "YES", "callback_data" => "data-access"], // INLINE BTN
+                        ["text" => "No", "callback_data" => "data-cancel"], // INLINE BTN
+                ]       // INLINE LINE 
+        ];      // INLINE END
+            
+        $encodedMarkup = json_encode([
+                "inline_keyboard" => $keyboard
+        ]);
+            
+        //////////////////////////////////    
+
+        $post_fields = array(
+            'chat_id'   => $chat_id,
+            'reply_markup' => $encodedMarkup,
+            'text'     => $msg 
+        ); 
+
+        $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type:multipart/form-data"
+        ));
+        curl_setopt($ch, CURLOPT_URL, $url); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields); 
+        $output = curl_exec($ch);
+    }     
         
     function sendInKey($chat_id, $msg, $keyboard = array()){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
