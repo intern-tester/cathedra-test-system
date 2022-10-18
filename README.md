@@ -30,14 +30,14 @@ on GitHub.
 
 ## Installation
 Telegram requires [PHP](https://www.php.net) v7.0+ to run.
-> Note: `PHP` is required on Heroku WebApp. You don`t needed install it. 
+> Note: `PHP` is required on Heroku WebApp. You don`t need to install it. 
 
 If you use Heroku WebApp: Set in Heroku settings `ConfigVars`: 
 `API` : `1234:000000` - Telegram bot token.
-> Note: `API` is required on Heroku WebApp Settings. It needed to create Webhook for properly work bot. To get this Token, you needed go to `@BotFather` and select `API Token`.
+> Note: `API` is need to set on Heroku WebApp Settings. It needed to create Webhook for properly work bot. To get this Token, you need to go on `@BotFather` and select `API Token`.
 
 ## Usage
-To preperly work bot, neede get _$token_ from _Heroku ConfigVars_:
+To preperly work bot, need to get _$token_ from _Heroku ConfigVars_:
 ```php
 index.php
 $token = getenv('API');
@@ -62,7 +62,7 @@ $bot->sendMessage($result['message']['chat']['id'], "Welcome!");
 
 MIT
 
-**Free Software!**
+**Opensources software.**
 
 [gitproject]: <https://github.com/intern-tester/cathedra-test-system>
 [git-repo-url]: <https://github.com/intern-tester/cathedra-test-system.git>
