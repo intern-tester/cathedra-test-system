@@ -1,7 +1,4 @@
 # Telegram Bot Class
-#
-
-## _The Simple Class For Fast Bot_
 
 This class include simples for fast start work with Telegram Bot.
 All function tested on Heroku WebApp. 
