@@ -35,7 +35,7 @@ And of course Telegram Bot Class created for itself, is open source with a [publ
 on GitHub.
 
 ## Installation
-Telegram requires [PHP](https://www.php.net) v7.0+ to run.
+Telegram requires [PHP](https://www.php.net) v7.3+ to run.
 > Note: `PHP` is required on Heroku WebApp. You don`t need to install it. 
 
 If you use Heroku WebApp: Set in Heroku settings `ConfigVars`: 
