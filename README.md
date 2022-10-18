@@ -62,7 +62,7 @@ $bot->sendMessage($result['message']['chat']['id'], "Welcome!");
 
 MIT
 
-**Free Software, Hell Yeah!**
+**Free Software!**
 
 [gitproject]: <https://github.com/intern-tester/cathedra-test-system>
 [git-repo-url]: <https://github.com/intern-tester/cathedra-test-system.git>
