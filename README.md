@@ -1,4 +1,5 @@
 # Telegram Bot Class
+Simple Class to crete Telegram chat bot.  
 
 This class include simples for fast start work with Telegram Bot.
 All function tested on Heroku WebApp. 
@@ -7,6 +8,12 @@ All function tested on Heroku WebApp.
 - Bootsrap Included
 - Telegram API
 - Heroku WebApp
+
+## Heroku Deploy
+
+<a href="https://heroku.com/deploy?template=https://github.com/intern-tester/cathedra-test-system/main">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+</a>
 
 ## Features
 
