@@ -2,6 +2,68 @@
 
 /*
 
+
+$options[][] = array('text' => 'Your text', 'callback_data' => 'test-data');
+$replyMarkup = array('inline_keyboard' => $options);
+$encodedMarkup = json_encode($replyMarkup, true);
+
+
+
+// Create keyboard
+        $data = http_build_query([
+            'text' => 'Please select language;',
+            'chat_id' => $update['message']['from']['id']
+        ]);
+        $keyboard = json_encode([
+            "inline_keyboard" => [
+                [
+                    [
+                        "text" => "english",
+                        "callback_data" => "english"
+                    ],
+                    [
+                        "text" => "russian",
+                        "callback_data" => "russian"
+                    ]
+                ]
+            ]
+        ]);
+
+        // Send keyboard
+        file_get_contents($botAPI . "/sendMessage?{$data}&reply_markup={$keyboard}");
+
+$keyboard = [
+    ['7', '8', '9'],
+    ['4', '5', '6'],
+    ['1', '2', '3'],
+         ['0']
+];
+
+$keyboard = array(
+  "inline_keyboard" => array( 
+    array(
+      array( 
+        "text" => "Button1", 
+        "callback_data" => "1", 
+      ), 
+      array( 
+        "text" => "Button2", 
+        "callback_data" => "2", 
+      ), 
+    )
+  ) 
+);
+
+
+
+//$client = $result['callback_query']['from']['id'];
+//$callback_query = $result['callback_query']['id'];
+//$callback_data = $callback_query['data'];
+
+*/
+
+/*
+
 function sms($data){
         $bot_url    = "https://api.telegram.org/bot".getenv('API');
         file_get_contents($bot_url . "/sendMessage?{$data}");
