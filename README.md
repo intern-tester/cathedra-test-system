@@ -9,11 +9,11 @@ All function tested on Heroku WebApp.
 - Telegram API
 - Heroku WebApp
 
-## Heroku Deploy
-
+### Heroku deploy
 <a href="https://heroku.com/deploy?template=https://github.com/intern-tester/cathedra-test-system/main">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
+
 
 ## Features
 
