@@ -1,0 +1,10 @@
+{
+  "name": "Telegram Simple Bot",
+  "description": "Simple class to create Telegram Bot",
+  "repository": "https://github.com/intern-tester/cathedra-test-system/tree/main",
+  "logo": "https://github.com/Pukhovskyi/test-heroku-button/raw/main/tg-heroku.png",
+  "keywords": ["php", "express", "telegram", "static"],
+  "env":{
+    "API":""
+  }
+}
